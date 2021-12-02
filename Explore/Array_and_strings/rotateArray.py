@@ -1,50 +1,31 @@
 class Solution(object):
-    def minSubArrayLen(self, target, nums):
+    def rotate(self, nums, k):
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        len_of_nums = len(nums)
+        if len_of_nums == 1: return None
 
-        length_nums = len(nums)
-
-        if length_nums == 1:
-            if nums[0] == target:
-                return 1
-            return 0
-
-        for num in nums:
-            if num >= target:
-                return 1
-
-        first_pointer = 0
-        second_pointer = 1
-        total = nums[first_pointer]
-        min_distance = float('inf')
-
-        while second_pointer < length_nums:
-
-            if total + nums[second_pointer] < target:
-
-                total = total + nums[second_pointer]
-                second_pointer += 1
-
-            elif total + nums[second_pointer] >= target:
-
-                distance = second_pointer- first_pointer + 1
-                if distance == 2:
-                    return 2
-
-                elif distance < min_distance:
-                    min_distance = distance
-                total = total - nums[first_pointer]
-                first_pointer += 1
-
-        if min_distance != float('inf'):
-            return min_distance
+        if k > len_of_nums:  ##bruh this optimization rekt me on acceptance rate
+            real_number_of_rotations = k % (len_of_nums)
         else:
-            return 0
+            real_number_of_rotations = k
 
+        while real_number_of_rotations > 0:
+
+            nums.insert(0, nums.pop(-1))
+
+            real_number_of_rotations -= 1
+
+        #could also 300 IQ it like this:
+        # s = k % len(nums)
+        #nums[:] = nums[-s:] + nums[:-s]
 
 def main():
-    nums =  [1,4,4]
-    target = 8
-    print(Solution().minSubArrayLen(target,nums))
+    nums =  [1,2]
+    k = 2
+    Solution().rotate(nums,k)
+    print (nums)
 
 
 if __name__ == "__main__":

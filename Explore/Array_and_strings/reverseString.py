@@ -5,7 +5,7 @@ class Solution(object):
         """
 
         #s.reverse() could just do this line lmao but practice 2 pointer
-
+    
         first = 0
         last  = len(s) - 1
 
