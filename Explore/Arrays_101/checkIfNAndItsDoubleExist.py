@@ -27,18 +27,16 @@ class Solution(object):
 
 
         arr_sorted= sorted(arr) #nlog(n)
-        #arr_squared = list()
         flag_0 = 0
 
         for number in arr_sorted:# n
-            if number == 0:
-                flag_0 += 1
-                if flag_0 == 2: return True
+            if number == 0:  # checks if 0 is present multiple times
+                flag_0 += 1 #[0,1,2,3,] returns false
+                if flag_0 == 2: return True #but [0,0,1,2,3,] returns true
 
-            #arr_squared.append(number*2)
 
         for number in arr_sorted: #n
-            if number == 0:continue
+            if number == 0:continue #skips 0 to avoid false postive
 
             if self.binarySearch(number*2,arr_sorted,0,len(arr_sorted)-1): #logn
                 return True
