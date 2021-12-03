@@ -46,7 +46,7 @@ class Solution(object):
             nums2_pointer -= 1
             over_write_pointer -= 1
 
-        
+
 
 nums1 = [1,2,3,0,0,0]
 m = 3
