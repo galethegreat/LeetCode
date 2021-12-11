@@ -3,28 +3,19 @@ from collections import deque
 class Solution(object):
     def checkChildren(self, grid, t, visited, q):
         r,c = t[0], t[1]
-        if c - 1 >= 0 and grid[r][c - 1] not in visited and grid[r][c - 1] == 1:
+        if c - 1 >= 0 and grid[r][c - 1] not in visited and grid[r][c - 1] == '1':
             q.append((r, c - 1))
 
-        if c + 1 < len(grid[0]) and grid[r][c + 1] not in visited and grid[r][c + 1] == 1:
+        if c + 1 < len(grid[0]) and grid[r][c + 1] not in visited and grid[r][c + 1] == '1':
             q.append((r, c + 1))
 
-        if r - 1 >= 0 and grid[r - 1][c] not in visited and grid[r - 1][c] == 1:
+        if r - 1 >= 0 and grid[r - 1][c] not in visited and grid[r - 1][c] == '1':
             q.append((r - 1, c))
 
-        if r + 1 < len(grid) and grid[r + 1][c] not in visited and grid[r + 1][c] == 1:
+        if r + 1 < len(grid) and grid[r + 1][c] not in visited and grid[r + 1][c] == '1':
             q.append((r + 1, c))
 
     def numIslands(self, grid):
-
-        # pre processing to turn grid which has '1' and '0' as chars to int
-        rows = len(grid)
-        columns = len(grid[0])
-
-        for row in range(rows):
-            for column in range(columns):
-                grid[row][column] = int(grid[row][column])
-        #above step can be avoided if you call int(grid[r][c]) but I am lazy
 
         rows = len(grid)
         columns = len(grid[0])
@@ -37,7 +28,7 @@ class Solution(object):
         for row in range(rows):#check if there is one '1' grid, if 0 '1', no island
             for column in range(columns):
 
-                if grid[row][column] == 1:
+                if grid[row][column] == '1':
                     isThereOne = True
                     break
 
@@ -54,7 +45,7 @@ class Solution(object):
             for column in range(columns):
                 if (row, column) in vistited: continue
 
-                if grid[row][column] == 0: continue
+                if grid[row][column] == '0': continue
 
                 else:
 
