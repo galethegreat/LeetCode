@@ -1,61 +1,31 @@
-class ListNode:
-    def __init__(self, val=0, next=None):
+class Node:
+    def __init__(self, val=0, next=None, random=None):
         self.val = val
         self.next = next
+        self.random = random
 
 class Solution:
-    def addTwoNumbers(self, list1, list2):
+    def __init__(self):
+        self.visited = dict()
+    def copyRandomList(self, head):
+        if head is None: return None
 
-        node_ans = ListNode(0)
-        node_ans_head = node_ans
-        node1 = list1
-        node2 = list2
-        carry = 0
-        value = 0
+        if head in self.visited:
+            return self.visited[head]
 
-        while node1 and node2:
+        node = Node(head.val,None,None)
 
-            value = (node1.val + node2.val + carry) % 10
-            node_ans.next = ListNode(value)
-            carry = (node1.val + node2.val + carry) // 10
-            node1 = node1.next
-            node2 = node2.next
-            node_ans = node_ans.next
+        self.visited[head] = node
 
-        if node1 is None and node2 is not None:
-            while node2:
-                value = (node2.val + carry) % 10
-                node_ans.next = ListNode(value)
-                carry = (node2.val + carry) // 10
-                node_ans = node_ans.next
-                node2 = node2.next
+        node.next = self.copyRandomList(head.next)
+        node.random =  self.copyRandomList(head.random)
 
-        elif node1 is not None and node2 is None:
-            while node1:
-                value = (node1.val + carry) % 10
-                node_ans.next = ListNode(value)
-                carry = (node1.val + carry) // 10
-                node_ans = node_ans.next
-                node1 = node1.next
-
-        while carry > 0:
-            value = (carry) % 10
-            node_ans.next = ListNode(value)
-            carry = (carry) // 10
-            node_ans = node_ans.next
-
-        return node_ans_head.next
+        return node
 
 def main():
-    li1 = ListNode(3)
-    li1.next = ListNode(7)
+    head = Node()
 
-    li2 = ListNode(9)
-    li2.next = ListNode(2)
-    #li2.next.next = ListNode(4)
-    #li2 = None
-    ans = Solution().addTwoNumbers(li1,li2)
-    #print(ans)
+    ans = Solution().copyRandomList(head)
 
     ans_list = list()
     while ans is not None:
