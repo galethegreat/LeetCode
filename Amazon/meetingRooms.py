@@ -1,53 +1,33 @@
-import heapq
-class MedianFinder(object):
-    def __init__(self):
-        self.heapMin = list()
-        self.heapMax = list()
+class Solution(object):
 
-    def addNum(self, num):
-        if len(self.heapMax) == 0:
-            heapq.heappush(self.heapMax, -num)
-        elif len(self.heapMin) == 0:
-            if num > - self.heapMax[0]:
-                heapq.heappush(self.heapMin, num)
+    def canAttendMeetings(self, intervals):
+
+        if len(intervals) <= 1: return True
+
+        intervals_toupled = list()
+
+        for interval in intervals:
+            intervals_toupled.append((interval[0],interval[1]))
+            intervals_toupled.append((interval[1],interval[1]))
+
+        intervals_toupled.sort()
+        start, end = None, None
+
+        for point in intervals_toupled:
+            if start is None:
+                start = point[0]
+                end =  point[1]
             else:
-                heapq.heappush(self.heapMin, - heapq.heappop(self.heapMax))
-                heapq.heappush(self.heapMax, -num)
-        else:
-            if len(self.heapMin) == len(self.heapMax):
-                if num >= - self.heapMax[0]:
-                    heapq.heappush(self.heapMin, num)
-                else:
-                    heapq.heappush(self.heapMax, -num)
+                if point[0] >= start and point[0] != point[1]: return False
+                else: start = None
 
-            elif len(self.heapMax) > len(self.heapMin):
-                if num >= - self.heapMax[0]:
-                    heapq.heappush(self.heapMin, num)
-                else:
-                    temp = heapq.heappop(self.heapMax)
-                    heapq.heappush(self.heapMax, -num)
-                    heapq.heappush(self.heapMin, -temp)
-            else:
-                if num <= self.heapMin[0]:
-                    heapq.heappush(self.heapMax, -num)
-                else:
-                    temp = heapq.heappop(self.heapMin)
-                    heapq.heappush(self.heapMin, num)
-                    heapq.heappush(self.heapMax, -temp)
+        return True
 
-    def findMedian(self):
-        if len(self.heapMin) == 0: return -self.heapMax[0]
+def main():
 
-        if len(self.heapMin) > len(self.heapMax): return self.heapMin[0]
+    intervals = [[0,30],[5,10],[15,20]]
 
-        if len(self.heapMax) > len(self.heapMin): return -self.heapMax[0]
+    print(Solution().canAttendMeetings(intervals))
 
-        return (-self.heapMax[0] + self.heapMin[0])/2
-
-
-M = MedianFinder()
-M.addNum(1)
-
-print(M.findMedian())
-M.addNum(3)
-print(M.findMedian())
+if __name__ == "__main__":
+    main()
