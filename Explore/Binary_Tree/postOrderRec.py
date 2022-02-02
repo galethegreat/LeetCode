@@ -17,7 +17,6 @@ class Solution(object):
 
             postOrder(root.left)
             postOrder(root.right)
-
             self.output.append(root.val)
 
         postOrder(root)
