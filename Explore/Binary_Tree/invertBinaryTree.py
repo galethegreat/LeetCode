@@ -6,23 +6,12 @@ class TreeNode:
 
 class Solution(object):
 
-    def __init__(self):
-        self.depth = 0
-
-    def maxDepth(self, root):
-        def dfs(root, level):
-
-            if root is None:return
-
-            self.depth = max(self.depth, level)
-            dfs(root.left, level + 1)
-            dfs(root.right, level + 1)
-
-        if root is None: return self.depth
-        dfs(root, 1)
-
-
-        return self.depth
+    def invertTree(self, root):
+        if root is None: return
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        return root
 
 def main():
 
@@ -33,7 +22,7 @@ def main():
     root.right.right = TreeNode(3)
     root.left.left = TreeNode(3)
     root.left.right = TreeNode(3)
-    print(Solution().maxDepth(root))
+    print(Solution().invertTree(root))
 
 if __name__ == "__main__":
     main()
