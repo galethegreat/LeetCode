@@ -23,13 +23,19 @@ class Solution(object):
 
 def main():
 
-    root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.left.left = TreeNode(4)
-    root.left.right = TreeNode(5)
-    root.right = TreeNode(3)
-    root.right.left = TreeNode(6)
+    root = TreeNode(3)
+    root.right = TreeNode(20)
+    root.right.left = TreeNode(15)
     root.right.right = TreeNode(7)
+    root.right.left.left = TreeNode(13)
+    root.right.right.left = TreeNode(14)
+    root.right.right.right = TreeNode(30)
+    root.right.right.left.left = TreeNode(36)
+    root.right.right.left.right = TreeNode(37)
+    root.left = TreeNode(9)
+    root.left.left = TreeNode(10)
+    root.left.right = TreeNode(11)
+    root.left.right.right = TreeNode(12)
 
     print(Solution().inorderTraversal(root))
 
