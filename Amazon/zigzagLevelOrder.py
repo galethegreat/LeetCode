@@ -20,7 +20,6 @@ class Solution(object):
 
         prev_level = 0
         cur_levl = prev_level + 1
-        #temp_ans = list()
         temp_ans = deque()
         self.output.append([root.val])
         self.que.append((root.left, cur_levl))
@@ -36,11 +35,9 @@ class Solution(object):
             new_levl = node_level[1]
 
             if new_levl != cur_levl:
-               # if self.flip: temp_ans.reverse()
                 self.flip = not(self.flip)
                 self.output.append(temp_ans)
                 temp_ans = deque()
-                #temp_ans = list()
                 cur_levl = new_levl
 
             if current is None: continue

@@ -42,8 +42,8 @@ class Codec:
         if not data:
             return None
 
-        vals = data.split(",")
-        nodes = iter((None if v == 'null' else TreeNode(int(v))) for v in vals)
+        roots_as_strings = data.split(",")
+        nodes = iter((None if root_string == 'null' else TreeNode(int(root_string))) for root_string in roots_as_strings)
         root = next(nodes)
         q = deque([root])
 
